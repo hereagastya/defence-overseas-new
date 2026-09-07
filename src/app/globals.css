@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Typography — variables populated by next/font in layout.tsx */
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  /* Brand palette */
+  --color-ink: #0b0f1a;
+  --color-ink-2: #131a2c;
+  --color-ink-3: #1b2438;
+  --color-cream: #faf7f1;
+  --color-cream-2: #f2ece1;
+  --color-gold: #c6a15b;
+  --color-gold-light: #e8d5a8;
+  --color-gold-dark: #a3814a;
+  --color-whatsapp: #25d366;
+  --color-muted: #5c6376;
+
+  /* Layout */
+  --spacing-header: 76px;
+  --radius-card: 16px;
+  --radius-panel: 24px;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px -12px rgb(11 15 26 / 0.15);
+  --shadow-soft: 0 20px 60px -20px rgb(11 15 26 / 0.25);
+
+  /* Animation */
+  --animate-spin-slow: spin-slow 60s linear infinite;
+  --animate-dash: dash-move 14s linear infinite;
+  --animate-dash-reverse: dash-move 18s linear infinite reverse;
+  --animate-float: float-badge 6s ease-in-out infinite;
+  --animate-float-delay: float-badge 6s ease-in-out infinite 1.4s;
+
+  /* A custom breakpoint sitting between Tailwind's default md/lg,
+     kept as a named token in case a future page needs the exact
+     cutoff used by the original static build. Sections in this
+     landing page use the stock lg (1024px) breakpoint instead. */
+  --breakpoint-tablet: 860px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+@keyframes float-badge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
