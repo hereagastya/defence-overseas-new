@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { HeroVisual } from "@/components/ui/HeroVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { PhoneIcon } from "@/components/icons/PhoneIcon";
@@ -52,7 +52,28 @@ export function Hero() {
         </Reveal>
 
         <Reveal className="order-1 lg:order-none" delay={100}>
-          <HeroVisual />
+          <div className="relative">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-panel shadow-soft sm:aspect-[5/6]">
+              <Image
+                src="/images/hero-campus.jpg"
+                alt="A student walking across a university campus in autumn"
+                fill
+                sizes="(min-width: 1024px) 45vw, 90vw"
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/0 to-ink/0" />
+            </div>
+
+            <div className="animate-float absolute left-[-4%] top-[8%] flex items-center gap-2 rounded-full border border-white/60 bg-white/80 px-4 py-2.5 text-xs font-semibold text-ink shadow-card backdrop-blur-md sm:text-[13px]">
+              <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-gold" />
+              Personalised Guidance
+            </div>
+            <div className="animate-float-delay absolute bottom-[8%] right-[-4%] flex items-center gap-2 rounded-full border border-white/60 bg-white/80 px-4 py-2.5 text-xs font-semibold text-ink shadow-card backdrop-blur-md sm:text-[13px]">
+              <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-gold" />
+              Visa &amp; Process Support
+            </div>
+          </div>
         </Reveal>
       </Container>
     </section>

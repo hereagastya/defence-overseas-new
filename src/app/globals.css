@@ -27,9 +27,6 @@
   --shadow-soft: 0 20px 60px -20px rgb(11 15 26 / 0.25);
 
   /* Animation */
-  --animate-spin-slow: spin-slow 60s linear infinite;
-  --animate-dash: dash-move 14s linear infinite;
-  --animate-dash-reverse: dash-move 18s linear infinite reverse;
   --animate-float: float-badge 6s ease-in-out infinite;
   --animate-float-delay: float-badge 6s ease-in-out infinite 1.4s;
 
@@ -38,18 +35,6 @@
      cutoff used by the original static build. Sections in this
      landing page use the stock lg (1024px) breakpoint instead. */
   --breakpoint-tablet: 860px;
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes dash-move {
-  to {
-    stroke-dashoffset: -260;
-  }
 }
 
 @keyframes float-badge {

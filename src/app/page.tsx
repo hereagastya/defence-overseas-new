@@ -3,8 +3,10 @@ import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCta } from "@/components/layout/StickyMobileCta";
 import { Hero } from "@/components/sections/Hero";
 import { TrustStrip } from "@/components/sections/TrustStrip";
+import { UniversityShowcase } from "@/components/sections/UniversityShowcase";
 import { Journey } from "@/components/sections/Journey";
 import { WhyUs } from "@/components/sections/WhyUs";
+import { Destinations } from "@/components/sections/Destinations";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function Home() {
@@ -22,8 +24,10 @@ export default function Home() {
       <main id="main">
         <Hero />
         <TrustStrip />
+        <UniversityShowcase />
         <Journey />
         <WhyUs />
+        <Destinations />
         <FinalCta />
       </main>
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -8,10 +9,19 @@ import { getCallLink, getWhatsAppLink } from "@/lib/contact";
 
 export function FinalCta() {
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden bg-[radial-gradient(120%_140%_at_50%_0%,var(--color-ink-3)_0%,var(--color-ink)_62%)] py-24 text-center sm:py-[110px]"
-    >
+    <section id="contact" className="relative overflow-hidden py-24 text-center sm:py-[110px]">
+      <Image
+        src="/images/final-cta-bg.jpg"
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[radial-gradient(120%_140%_at_50%_0%,rgba(27,36,56,0.75)_0%,rgba(11,15,26,0.94)_62%)]"
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[-200px] left-1/2 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(198,161,91,0.25),transparent_70%)]"

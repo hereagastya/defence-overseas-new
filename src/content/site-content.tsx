@@ -81,3 +81,36 @@ export const HERO_MICRO_ITEMS: string[] = [
   "Applications & admissions",
   "Visa guidance",
 ];
+
+export interface ShowcaseImage {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+/** The two supporting photos in the "world-class environments" showcase. */
+export const UNIVERSITY_SHOWCASE: ShowcaseImage[] = [
+  {
+    src: "/images/university-library.jpg",
+    alt: "A grand university library reading room",
+    caption: "World-class libraries and study spaces",
+  },
+  {
+    src: "/images/university-architecture.jpg",
+    alt: "A historic university building at sunset",
+    caption: "Centuries of academic tradition",
+  },
+];
+
+export interface Destination {
+  country: string;
+  image: string;
+  alt: string;
+}
+
+export const DESTINATIONS: Destination[] = [
+  { country: "United Kingdom", image: "/images/destination-uk.jpg", alt: "Big Ben and the Houses of Parliament in London at dusk" },
+  { country: "Europe", image: "/images/destination-europe.jpg", alt: "Venice, Italy, at sunset" },
+  { country: "Canada", image: "/images/destination-canada.jpg", alt: "Toronto skyline at sunset" },
+  { country: "Australia", image: "/images/destination-australia.jpg", alt: "Sydney Opera House and Harbour Bridge at sunset" },
+];
