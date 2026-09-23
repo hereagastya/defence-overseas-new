@@ -3,22 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
-type RevealTag = "div" | "li";
+type RevealTag = "div" | "li" | "section";
 
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
-  /** Stagger delay in milliseconds, applied via inline transition-delay. */
+  /** Stagger delay in ms. */
   delay?: number;
   as?: RevealTag;
 }
 
-/**
- * Fades + slides children into view the first time they cross into the
- * viewport. The transition itself is skipped under prefers-reduced-motion
- * (see the motion-reduce: classes below) while visibility is still driven
- * by scroll position. Reusable across any section on the site.
- */
+/** Lifts children into place the first time they enter the viewport. */
 export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -26,17 +21,15 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.unobserve(el);
+          observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -45,11 +38,11 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
 
   return (
     <Tag
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Tag is dynamic (div | li); a precise ref union isn't worth the ceremony here.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Tag is a small closed union of intrinsic elements.
       ref={ref as any}
       style={{ transitionDelay: `${delay}ms` }}
       className={cn(
-        "transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0",
+        "transition-[opacity,transform] duration-[900ms] ease-[var(--ease-out-expo)] motion-reduce:transition-none",
         visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
         className
       )}

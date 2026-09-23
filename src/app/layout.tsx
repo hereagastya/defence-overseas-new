@@ -1,34 +1,58 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Cinzel, Figtree } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { FloatingContact } from "@/components/layout/FloatingContact";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Defence Overseas | Study Abroad, Guided Right",
+  metadataBase: new URL("https://defenceoverseas.com"),
+  title: {
+    default: "Defence Overseas | Study Abroad Consultancy, Pune",
+    template: "%s | Defence Overseas",
+  },
   description:
-    "Defence Overseas helps students navigate studying abroad — from choosing the right university and programme to applications, admissions and visa guidance.",
+    "Defence Overseas guides Indian students and the armed-forces community to study, train and work abroad — MBBS, BTech, MTech, MBA, German language training and more.",
+  openGraph: {
+    siteName: "Defence Overseas",
+    type: "website",
+    locale: "en_IN",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${fraunces.variable} ${inter.variable} scroll-smooth motion-reduce:scroll-auto`}
-    >
-      <body className="bg-cream font-sans text-ink antialiased">{children}</body>
+    <html lang="en" className={`${bricolage.variable} ${figtree.variable} ${cinzel.variable}`}>
+      <body className="min-h-screen font-sans">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-on-forest"
+        >
+          Skip to content
+        </a>
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <FloatingContact />
+      </body>
     </html>
   );
 }

@@ -1,38 +1,57 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { StickyMobileCta } from "@/components/layout/StickyMobileCta";
-import { Hero } from "@/components/sections/Hero";
-import { TrustStrip } from "@/components/sections/TrustStrip";
-import { UniversityShowcase } from "@/components/sections/UniversityShowcase";
-import { Journey } from "@/components/sections/Journey";
-import { WhyUs } from "@/components/sections/WhyUs";
-import { Destinations } from "@/components/sections/Destinations";
-import { FinalCta } from "@/components/sections/FinalCta";
+import { HomeHero } from "@/components/sections/HomeHero";
+import {
+  ClaimsSentence,
+  CounsellingBand,
+  DefenceBand,
+  DestinationArches,
+  ServiceIndex,
+  Testimonials,
+} from "@/components/sections/HomeSections";
+import { RouteSteps } from "@/components/sections/RouteSteps";
+import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
+import { Faq } from "@/components/ui/Faq";
+import { H2, Lead } from "@/components/ui/type";
+import { HOME_FAQS, JOURNEY } from "@/content/home";
 
 export default function Home() {
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-0 focus:top-0 focus:z-[999] focus:rounded-br-lg focus:bg-ink focus:px-5 focus:py-3 focus:text-cream"
-      >
-        Skip to content
-      </a>
+      <HomeHero />
+      <ServiceIndex />
+      <CounsellingBand />
 
-      <Header />
+      <section className="py-24 lg:py-32">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <Reveal>
+              <H2>From first call to first day, we stay on the route with you.</H2>
+            </Reveal>
+            <Reveal delay={100}>
+              <Lead>Five stages. At every one, a real person who knows where you are and what comes next.</Lead>
+            </Reveal>
+          </div>
+          <div className="mt-16">
+            <RouteSteps steps={JOURNEY} />
+          </div>
+        </Container>
+      </section>
 
-      <main id="main">
-        <Hero />
-        <TrustStrip />
-        <UniversityShowcase />
-        <Journey />
-        <WhyUs />
-        <Destinations />
-        <FinalCta />
-      </main>
+      <DestinationArches />
+      <ClaimsSentence />
+      <DefenceBand />
+      <Testimonials />
 
-      <Footer />
-      <StickyMobileCta />
+      <section className="py-24 lg:py-32">
+        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <Reveal>
+            <H2>Questions, answered plainly.</H2>
+          </Reveal>
+          <Reveal delay={100}>
+            <Faq items={HOME_FAQS} />
+          </Reveal>
+        </Container>
+      </section>
     </>
   );
 }

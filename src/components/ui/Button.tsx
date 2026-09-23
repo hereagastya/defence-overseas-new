@@ -1,45 +1,64 @@
+import Link from "next/link";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { ArrowRight } from "./icons";
 
-export type ButtonVariant = "primary" | "outline" | "outline-light" | "dark";
+export type ButtonVariant = "gold" | "forest" | "maroon" | "outline" | "outline-light";
 export type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  href: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
-  className?: string;
+  arrow?: boolean;
   children: ReactNode;
 }
 
 const BASE =
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full font-semibold transition-all duration-[250ms] ease-in-out [&_svg]:h-[18px] [&_svg]:w-[18px] [&_svg]:shrink-0 [&_svg]:fill-current";
+  "group/btn inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full font-semibold tracking-[-0.005em] transition-[transform,background-color,color,border-color] duration-300 ease-[var(--ease-out-expo)] active:scale-[0.98] [&_svg.lead]:h-[1.15em] [&_svg.lead]:w-[1.15em]";
 
-const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary:
-    "bg-linear-to-br from-gold-light via-gold to-gold-dark text-ink shadow-[0_12px_30px_-10px_rgba(198,161,91,0.55)] hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-8px_rgba(198,161,91,0.65)] active:translate-y-0",
-  outline:
-    "border-[1.5px] border-ink/[0.18] text-ink hover:-translate-y-0.5 hover:border-ink hover:bg-ink/5",
-  "outline-light":
-    "border-[1.5px] border-cream/35 text-cream hover:-translate-y-0.5 hover:border-cream hover:bg-cream/10",
-  dark: "bg-ink text-cream hover:-translate-y-0.5 hover:bg-ink-2",
+export const buttonVariants: Record<ButtonVariant, string> = {
+  gold: "bg-gold text-forest-deep hover:bg-gold-pale",
+  forest: "bg-forest text-on-forest hover:bg-forest-mid",
+  maroon: "bg-maroon text-white hover:bg-maroon-deep",
+  outline: "border-[1.5px] border-forest/30 text-forest hover:border-forest hover:bg-forest hover:text-on-forest",
+  "outline-light": "border-[1.5px] border-on-forest/40 text-on-forest hover:border-gold hover:bg-gold hover:text-forest-deep",
 };
 
-const SIZE_STYLES: Record<ButtonSize, string> = {
-  sm: "px-5 py-[10px] text-sm",
-  md: "px-[26px] py-[14px] text-[15px]",
-  lg: "px-8 py-4 text-base",
+export const buttonSizes: Record<ButtonSize, string> = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3.5 text-[15px]",
+  lg: "px-8 py-[18px] text-base",
 };
 
-export function Button({
-  variant = "primary",
-  size = "md",
-  className,
-  children,
-  ...props
-}: ButtonProps) {
-  return (
-    <a className={cn(BASE, VARIANT_STYLES[variant], SIZE_STYLES[size], className)} {...props}>
+export function Button({ href, variant = "forest", size = "md", arrow = false, className, children, ...props }: ButtonProps) {
+  const classes = cn(BASE, buttonVariants[variant], buttonSizes[size], className);
+  const content = (
+    <>
       {children}
+      {arrow && (
+        <ArrowRight className="lead transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover/btn:translate-x-1" />
+      )}
+    </>
+  );
+
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={classes} {...props}>
+        {content}
+      </Link>
+    );
+  }
+
+  const external = /^https?:/.test(href);
+  return (
+    <a
+      href={href}
+      className={classes}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...props}
+    >
+      {content}
     </a>
   );
 }

@@ -1,11 +1,12 @@
 /**
- * Single source of truth for Defence Overseas contact details.
- * To go live, replace the two values below — every WhatsApp/Call
- * button across the site reads from here.
+ * Single source of truth for contact channels. Replace the placeholders and
+ * every WhatsApp / call control across the site updates.
  */
 export const CONTACT_CONFIG = {
-  whatsappNumber: "WHATSAPP_NUMBER_HERE", // country code + number, digits only, e.g. "919876543210"
-  phoneNumber: "PHONE_NUMBER_HERE", // e.g. "+919876543210"
+  whatsappNumber: "918591879668",
+  phoneNumber: "+918591879668",
+  phoneDisplay: "+91 85918 79668", // how the number is printed on the page
+  email: "defenceoverseas@gmail.com",
   whatsappMessage: "Hi Defence Overseas, I'd like to know more about studying abroad.",
 } as const;
 
@@ -15,4 +16,8 @@ export function getWhatsAppLink(message: string = CONTACT_CONFIG.whatsappMessage
 
 export function getCallLink(): string {
   return `tel:${CONTACT_CONFIG.phoneNumber}`;
+}
+
+export function getMailLink(): string | null {
+  return CONTACT_CONFIG.email.includes("@") ? `mailto:${CONTACT_CONFIG.email}` : null;
 }

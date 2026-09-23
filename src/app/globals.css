@@ -1,48 +1,128 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Typography — variables populated by next/font in layout.tsx */
-  --font-serif: var(--font-fraunces);
-  --font-sans: var(--font-inter);
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-figtree);
+  --font-crest: var(--font-cinzel);
 
-  /* Brand palette */
-  --color-ink: #0b0f1a;
-  --color-ink-2: #131a2c;
-  --color-ink-3: #1b2438;
-  --color-cream: #faf7f1;
-  --color-cream-2: #f2ece1;
-  --color-gold: #c6a15b;
-  --color-gold-light: #e8d5a8;
-  --color-gold-dark: #a3814a;
-  --color-whatsapp: #25d366;
-  --color-muted: #5c6376;
+  /* Palette drawn from the Defence Overseas crest: forest, brass, maroon. */
+  --color-forest: #17382a;
+  --color-forest-deep: #0e261b;
+  --color-forest-mid: #24523f;
+  --color-gold: #d9a93a;
+  --color-gold-deep: #8f6a0e;
+  --color-gold-pale: #f4e3b0;
+  --color-maroon: #6e1f2f;
+  --color-maroon-deep: #4a1320;
+  --color-mist: #e8eee6;
+  --color-paper: #f7f9f5;
+  --color-ink: #12201a;
+  --color-muted: #4b5b52;
+  --color-line: #cfd8cd;
+  --color-on-forest: #e6efe8;
+  --color-on-forest-muted: #b4c7ba;
 
-  /* Layout */
-  --spacing-header: 76px;
-  --radius-card: 16px;
-  --radius-panel: 24px;
+  --radius-panel: 36px;
+  --radius-card: 24px;
+  --spacing-header: 84px;
 
-  /* Shadows */
-  --shadow-card: 0 10px 30px -12px rgb(11 15 26 / 0.15);
-  --shadow-soft: 0 20px 60px -20px rgb(11 15 26 / 0.25);
+  --shadow-lift: 0 18px 40px -22px rgb(14 38 27 / 0.45), 0 6px 14px -8px rgb(14 38 27 / 0.25);
 
-  /* Animation */
-  --animate-float: float-badge 6s ease-in-out infinite;
-  --animate-float-delay: float-badge 6s ease-in-out infinite 1.4s;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* A custom breakpoint sitting between Tailwind's default md/lg,
-     kept as a named token in case a future page needs the exact
-     cutoff used by the original static build. Sections in this
-     landing page use the stock lg (1024px) breakpoint instead. */
-  --breakpoint-tablet: 860px;
+  --animate-stamp-in: stamp-in 0.7s var(--ease-out-expo) both;
+  --animate-rise: rise 0.8s var(--ease-out-expo) both;
+  --animate-float: float-slow 7s ease-in-out infinite;
 }
 
-@keyframes float-badge {
-  0%,
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.9) rotate(-24deg);
+  }
   100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px) rotate(-6deg);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--spacing-header) + 12px);
+  scrollbar-color: var(--color-forest-mid) var(--color-mist);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--color-forest);
+  accent-color: var(--color-forest);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  text-wrap: balance;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
