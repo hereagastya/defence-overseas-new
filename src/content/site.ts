@@ -7,20 +7,21 @@ export const SITE = {
   tagline: "Your gateway to global opportunities",
   url: "https://defenceoverseas.com",
   city: "Pune, Maharashtra",
-  // Social handles below are still placeholders — replace with the real profile URLs.
   addressLines: ["Neco Garden Road, Viman Nagar", "Pune, Maharashtra 411014, India"],
   hours: "Mon – Sat, 10:00 – 19:00",
+  // Real Instagram/YouTube URLs still to come — these are placeholders.
   social: [
     { label: "Instagram", href: "https://instagram.com/" },
-    { label: "Facebook", href: "https://facebook.com/" },
     { label: "YouTube", href: "https://youtube.com/" },
   ],
 } as const;
 
 /**
- * Client-supplied figures from the business briefing. Not independently
- * verified — confirm each one before it is published widely. The briefing's
- * "success rate" claim is deliberately omitted until it can be substantiated.
+ * Placeholder scale figures — the client has confirmed these are provisional
+ * ("imaginary for now", startup-stage) rather than audited numbers. Swap in
+ * real, defensible figures once they exist; a specific "success rate" claim
+ * is deliberately not included here, since that kind of number is the one
+ * regulators and unhappy customers actually check.
  */
 export const CLAIMS = {
   years: "10+",

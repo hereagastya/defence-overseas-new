@@ -1,15 +1,52 @@
 import { FORMS, type FormKind } from "@/content/forms";
 import { normalisePhone, validateLead, type LeadValues } from "@/lib/leads";
 
+type Lead = { kind: FormKind; values: LeadValues; page: string; receivedAt: string };
+
 /**
- * Lead intake. Validates the submission and hands it to `storeLead`.
+ * Forwards every lead to a CRM via a plain webhook, so it works with
+ * whichever CRM the team ends up using — nearly all of them (Zoho, HubSpot,
+ * Pipedrive, monday.com, or a Zapier/Make "catch hook" in front of anything
+ * else) accept a generic incoming webhook. Configure it with two env vars:
  *
- * TODO(backend): `storeLead` currently only logs. Point it at the real intake
- * system (database table, CRM webhook, or email) — every lead arrives tagged
- * with its `kind`, so the team knows which service it came from.
+ *   CRM_WEBHOOK_URL   — required to enable forwarding; unset = no-op.
+ *   CRM_WEBHOOK_TOKEN — optional, sent as `Authorization: Bearer <token>`.
+ *
+ * A slow or failing CRM must never block the visitor's submission, so this
+ * is awaited with a short timeout and any failure is only logged — the lead
+ * is always accepted for the visitor once their own input is valid.
  */
-async function storeLead(lead: { kind: FormKind; values: LeadValues; page: string; receivedAt: string }) {
+async function forwardToCrm(lead: Lead): Promise<void> {
+  const url = process.env.CRM_WEBHOOK_URL;
+  if (!url) return;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(process.env.CRM_WEBHOOK_TOKEN ? { Authorization: `Bearer ${process.env.CRM_WEBHOOK_TOKEN}` } : {}),
+      },
+      body: JSON.stringify({ source: "defenceoverseas.com", ...lead, fields: lead.values }),
+      signal: controller.signal,
+    });
+    if (!res.ok) console.error("[lead] CRM webhook rejected the lead", res.status, await res.text().catch(() => ""));
+  } catch (err) {
+    console.error("[lead] CRM webhook failed", err);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+/**
+ * Lead intake. Validates the submission, forwards it to the CRM webhook when
+ * configured, and always logs it server-side as a fallback record.
+ */
+async function storeLead(lead: Lead) {
   console.info("[lead]", JSON.stringify(lead));
+  await forwardToCrm(lead);
 }
 
 export async function POST(request: Request) {

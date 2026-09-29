@@ -20,20 +20,29 @@ There is deliberately no payment flow.
 
 | What | Where |
 | --- | --- |
-| WhatsApp / phone / email | `src/lib/contact.ts` |
-| Address, hours, social links | `src/content/site.ts` |
-| Business figures (years, students, partners, countries) | `CLAIMS` in `src/content/site.ts` — client-supplied, confirm before publishing |
+| Social profile URLs (Instagram, YouTube) | `src/content/site.ts` — channels confirmed, real URLs not yet supplied |
+| Business figures (years, students, partners, countries) | `CLAIMS` in `src/content/site.ts` — confirmed by the client as provisional/placeholder ("imaginary for now"); swap in real figures once they exist |
 | Testimonials (currently placeholders) | `src/content/home.ts` |
 | Founder story (placeholder on About) | `src/app/about/page.tsx` |
-| Service copy, eligibility, steps, FAQs | `src/content/services.tsx` |
-| Form fields and success messages | `src/content/forms.ts` |
+| Toss International's own logo (currently reuses the Defence Overseas crest) | `public/images/`, referenced from `src/app/learn-german/page.tsx` |
+| CRM webhook | see below |
+
+Phone, WhatsApp, email and the Pune office address are already real (`src/lib/contact.ts`,
+`src/content/site.ts`).
 
 ## Lead capture
 
-All forms post to `POST /api/leads` (`src/app/api/leads/route.ts`), tagged by form `kind`
+All seven forms post to `POST /api/leads` (`src/app/api/leads/route.ts`), tagged by form `kind`
 (`counselling`, `brochure`, `eligibility`, `demo`, `callback`, `roadmap`, `contact`). Input is
-validated on the client and again on the server. `storeLead` currently only logs — connect it to
-the real intake (database, CRM webhook or email) before launch.
+validated on the client and again on the server.
+
+Every lead is always logged server-side, and is also forwarded to a CRM when `CRM_WEBHOOK_URL`
+is set (see `.env.example`) — a plain webhook POST, so it works with whichever CRM the team ends
+up using: Zoho CRM, HubSpot, Pipedrive and monday.com all accept a generic incoming webhook
+directly, and a Zapier/Make "catch hook" works as a universal adapter in front of anything else.
+Set `CRM_WEBHOOK_URL` (and optionally `CRM_WEBHOOK_TOKEN` for bearer-token auth) in the Vercel
+project's environment variables. A failing or slow CRM never blocks the visitor's submission —
+it's only logged.
 
 ## Structure
 
