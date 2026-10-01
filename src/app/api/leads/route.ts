@@ -32,7 +32,11 @@ async function forwardToCrm(lead: Lead): Promise<void> {
       body: JSON.stringify({ source: "defenceoverseas.com", ...lead, fields: lead.values }),
       signal: controller.signal,
     });
-    if (!res.ok) console.error("[lead] CRM webhook rejected the lead", res.status, await res.text().catch(() => ""));
+    if (res.ok) {
+      console.info("[lead] CRM webhook delivered", res.status);
+    } else {
+      console.error("[lead] CRM webhook rejected the lead", res.status, await res.text().catch(() => ""));
+    }
   } catch (err) {
     console.error("[lead] CRM webhook failed", err);
   } finally {
