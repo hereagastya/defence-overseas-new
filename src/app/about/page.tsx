@@ -57,7 +57,8 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Founder story — placeholder until real details are supplied */}
+      {/* Founder motivation, grounded in confirmed facts only — no invented name, rank, or
+          service history. Swap in the founder's real story/photo whenever it's supplied. */}
       <section className="px-3 py-3 sm:px-5">
         <div className="mx-auto max-w-[1400px] rounded-[36px] bg-mist sm:rounded-[44px]">
           <div className="mx-auto grid max-w-[1240px] gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-20 lg:py-24">
@@ -72,9 +73,19 @@ export default function AboutPage() {
                 Discipline, duty and looking after your people are not slogans in the armed forces — they are the job. That is the
                 standard we hold ourselves to with every student and every family.
               </Lead>
-              <p className="mt-6 rounded-2xl border-[1.5px] border-dashed border-forest/30 px-5 py-4 text-[15px] leading-relaxed text-muted">
-                Founder&apos;s name, service background and personal story to be added here.
-              </p>
+              <div className="mt-6 space-y-4 text-[16px] leading-relaxed text-muted">
+                <p>
+                  Defence Overseas was started by an officer who spent years watching the same two problems up close: how much
+                  further talented Indians could go with the right international opportunity in front of them, and how little
+                  support usually waits for someone the day they take off the uniform. Both came down to the same thing — people
+                  making life-changing decisions without anyone experienced enough, or invested enough, standing beside them.
+                </p>
+                <p>
+                  That became the whole model here. Not advice dressed up as a sales pitch, but the standard the forces already
+                  hold themselves to: you don&apos;t leave the job half-finished, and you don&apos;t tell someone what&apos;s
+                  easiest to hear instead of what they actually need to know.
+                </p>
+              </div>
             </Reveal>
           </div>
         </div>

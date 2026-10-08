@@ -75,9 +75,17 @@ credential is claimed as the differentiator.
 ## Evidence on Hand
 
 - Still pending from the client, all confirmed as "coming soon" rather than declined: real
-  testimonials (currently placeholder quotes on the home page), the founder's story and photo
-  (empty, marked slot on the About page), the Toss International sub-brand's own logo (using
-  the Defence Overseas crest until then), and which CRM to wire the lead webhook to.
+  testimonials (currently placeholder quotes on the home page) and the Toss International
+  sub-brand's own logo (using the Defence Overseas crest until then).
+- The About page's founder section now carries real, finished copy (written by the model,
+  explicitly invited to by the client) about the motivation behind the business — grounded only
+  in confirmed facts (an officer founded it; "extend the spirit of service beyond uniform"). It
+  deliberately does not name the founder, state a rank, unit, or years of service, or invent any
+  specific personal history — a defence-service-record claim about a real, identifiable person
+  is a materially different and higher-stakes kind of fabrication than the provisional business
+  figures, especially given the ex-servicemen audience most likely to notice if it were invented.
+  A real name, photo, and personal story from the founder would still improve this section and
+  can replace this copy whenever supplied.
 - Business scale figures are explicitly provisional placeholders — see Capabilities and
   Constraints.
 - Real photography: destination and campus photos under `public/images/` are Creative
